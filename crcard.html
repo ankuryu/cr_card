@@ -33,17 +33,16 @@
             <q-separator></q-separator>
 
             <q-tab-panels v-model="tab" animated>
-              <q-tab-panel name="Dash">
+              <q-tab-panel name="dash">
                 <div class="text-h6">Dash</div>
                 <div class="q-pa-md">
-                    <q-table
-                      title="Cards"
-                      :rows="rows"
-                      :columns="columns"
-                      row-key="" 
-                    ></q-table>
+                  <q-table
+                    title="Cards"
+                    :rows="row"
+                    :columns="col"
+                    row-key="name"
+                  />
                   </div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </q-tab-panel>
 
               <q-tab-panel name="edit">
@@ -106,14 +105,25 @@
       Example kicking off the UI. Obviously, adapt this to your specific needs.
         Assumes you have a <div id="q-app"></div> in your <body> above
        */
-      const {ref} = Vue
+      const {ref,reactive} = Vue
       const app = Vue.createApp({
 
         setup() {
-         let tab=ref('recp')
+         let tab=ref('dash')
          let splitterModel= ref(20) 
-         let row = ref([])
-         let col = ref([])
+         let row = reactive([
+          {dt:"22-07-2022",nar:"Narration",id:01},
+          {dt:"23-07-2022",nar:"Jango",id:02},
+          {dt:"24-07-2022",nar:"Mango",id:03},
+          {dt:"25-07-2022",nar:"Tango",id:04},
+          {dt:"26-07-2022",nar:"Easy",id:05}
+         ])
+         let col = reactive([
+           {name:'dt',label:"Date",field:"dt"},
+           {name:"nar",label:"Narration",field:"nar"},
+           {name:"amt",label:"Id",field:'id'},
+
+         ])
           return {tab,splitterModel,row,col}
         }
       })
