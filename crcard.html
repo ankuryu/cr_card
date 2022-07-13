@@ -13,85 +13,97 @@
   <body>
     <!-- example of injection point where you write your app template -->
     <div id="q-app">
-  <div class="q-pa-md">
-    <div class="q-gutter-y-md" style="max-width: 600px">
-      <q-card>
-        <q-tabs
-          v-model="tab"
-          dense
-          class="text-grey"
-          active-color="primary"
-          indicator-color="primary"
-          align="justify"
-          narrow-indicator
-        >
-          <q-tab name="recp" label="Receipt"></q-tab>
-          <q-tab name="isu" label="Issues"></q-tab>
-          <q-tab name="mas" label="Master"></q-tab>
-        </q-tabs>
+      <div class="q-pa-md">
+        <div class="q-gutter-y-md" style="max-width: 900px">
+          <q-card>
+            <q-tabs
+                v-model="tab"
+                dense
+                class="text-grey"
+                active-color="primary"
+                indicator-color="primary"
+                align="justify"
+                narrow-indicator
+                >
+                <q-tab name="dash" label="Dash"></q-tab>
+                <q-tab name="edit" label="Edit"></q-tab>
+                <q-tab name="mas" label="Master"></q-tab>
+            </q-tabs>
 
-        <q-separator></q-separator>
+            <q-separator></q-separator>
 
-        <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="recp">
-            <div class="text-h6">Receipts</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
+            <q-tab-panels v-model="tab" animated>
+              <q-tab-panel name="Dash">
+                <div class="text-h6">Dash</div>
+                <div class="q-pa-md">
+                    <q-table
+                      title="Cards"
+                      :rows="rows"
+                      :columns="columns"
+                      row-key="" 
+                    ></q-table>
+                  </div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </q-tab-panel>
 
-          <q-tab-panel name="isu">
-            <div class="text-h6">Issues</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
+              <q-tab-panel name="edit">
+                <div class="text-h6">Edit</div>
+                <div>
+                  <div class="row">
+                    <div class="col">
+                      <label for="date">Date</label>
+                      <input type="date" placeholder="Date" class="q-ma-sm">
+                    </div>
+                    <div class="col">
+                      <label for="nar">Narration</label>
+                      <textarea id="" name="nar" cols="30" rows="2" placeholder="Narration" q>Narration</textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label for="amt">Amount</label>
+                      <input class="q-ma-sm q-pa-sm" type="numeric" name="amt">
+                    </div>
+                    <div class="col">
+                      <label class="q-ma-sm" for="ccrd">Card</label>
+                      <input class="q-ma-sm q-pa-sm" name="ccrd" type="text">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label class="q-ma-sm" for="vou">Voucher</label>
+                      <input class="q-ma-sm q-pa-sm" name="vou" type="text">
+                    </div>
+                    <div class="col">
+                      <label class="q-ma-sm" for="ldgr">Ledger</label>
+                      <input class="q-ma-sm q-pa-sm" name="ldgr" type="text">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label class="q-ma-sm" for="mth">Month</label>
+                      <input class="q-ma-sm q-pa-sm" name="mth" type="text">
+                    </div>
+                  </div>
+                </div>
+              </q-tab-panel>
 
-          <q-tab-panel name="mas">
-            <div class="text-h6">Master</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-        </q-tab-panels>
-      </q-card>
-
-      <q-card>
-        <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="recp">
-            <div class="text-h6">Receipt</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-
-          <q-tab-panel name="isu">
-            <div class="text-h6">Issues</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-
-          <q-tab-panel name="mas">
-            <div class="text-h6">Master</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-        </q-tab-panels>
-
-        <q-separator></q-separator>
-
-        <q-tabs
-          v-model="tab"
-          dense
-          class="bg-grey-3"
-          align="justify"
-          narrow-indicator
-        >
-          <q-tab name="recp" label="Receipt"></q-tab>
-          <q-tab name="isu" label="Issues"></q-tab>
-          <q-tab name="mas" label="Master"></q-tab>
-        </q-tabs>
-      </q-card>
-    </div>
-  </div>
+              <q-tab-panel name="mas">
+                <div class="text-h6">Master</div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </q-tab-panel>
+            </q-tab-panels>
+          </q-card>
+        </div>
+      </div>
     </div>
     <!-- Add the following at the end of your body tag -->
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quasar@2.7.5/dist/quasar.umd.prod.js"></script>
-    
+
     <script setup>
       /*
-        Example kicking off the UI. Obviously, adapt this to your specific needs.
+      Example kicking off the UI. Obviously, adapt this to your specific needs.
         Assumes you have a <div id="q-app"></div> in your <body> above
        */
       const {ref} = Vue
@@ -100,12 +112,14 @@
         setup() {
          let tab=ref('recp')
          let splitterModel= ref(20) 
-          return {tab,splitterModel}
+         let row = ref([])
+         let col = ref([])
+          return {tab,splitterModel,row,col}
         }
       })
 
       app.use(Quasar)
       app.mount('#q-app')
     </script>
-  </body>
+        </body>
 </html>
